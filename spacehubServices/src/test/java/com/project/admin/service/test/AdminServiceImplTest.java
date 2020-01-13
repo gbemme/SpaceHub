@@ -22,7 +22,7 @@ import com.project.product.entity.Product;
  * @author gbemisola
  *
  */
-@ContextConfiguration("classpath:/spacehub-service-servlet.xml")
+@ContextConfiguration("classpath:/spacehub-service-context.xml")
 @RunWith(SpringRunner.class)
 public class AdminServiceImplTest {
 
