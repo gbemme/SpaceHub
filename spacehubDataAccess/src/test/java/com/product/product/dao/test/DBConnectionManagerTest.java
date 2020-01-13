@@ -19,7 +19,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
  * @author gbemisola
  *
  */
-@ContextConfiguration("classpath:/spacehub-dataaccess-servlet.xml")
+@ContextConfiguration("classpath:/spacehub-dataaccess-context.xml")
 @RunWith(SpringRunner.class)
 public class DBConnectionManagerTest {
 	
