@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.product.product.dao.test.DBConnectionManagerTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.538 sec
