@@ -5,11 +5,14 @@ package com.project.product.dao;
 
 import java.util.List;
 
+
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.product.entity.Product;
 
@@ -29,7 +32,7 @@ public class ProductDAOImpl implements ProductDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	
+	@Transactional
 	public List<Product> getProducts() {
 		
 		// get the current hibernate session
@@ -50,6 +53,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 
 	@Override
+	@Transactional
 	public void saveProduct(Product theProduct) {
 		
 		// get current hibernate session
@@ -62,6 +66,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 
 	@Override
+	@Transactional
 	public Product getProduct(int theId) {
 		
 		// get the current hibernate session
@@ -77,6 +82,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 
 	@Override
+	@Transactional
 	public void deleteProduct(int theId) {
 		// get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();

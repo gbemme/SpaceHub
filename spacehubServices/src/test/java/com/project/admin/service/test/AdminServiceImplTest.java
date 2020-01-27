@@ -44,7 +44,7 @@ public class AdminServiceImplTest {
 	@Test
 	public void addNewProductTest() {
 		
-		Product theProduct = new Product("Accurate","Lovely setting",6000.50);
+		Product theProduct = new Product("Accurate","Lovely setting",6000.50,"/home/gbemisola/files/IMG-20200121-WA0006.jpg");
 		
 	 doNothing().when(adminService).saveProduct(isA(Product.class));
 	 

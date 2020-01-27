@@ -5,9 +5,11 @@ package com.project.productimg.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -64,10 +66,27 @@ public class ProductImageController {
 
 	   // Now do something with file...
 	   FileCopyUtils.copy(productImage.getFile().getBytes(), new File( UPLOAD_LOCATION + productImage.getFile().getOriginalFilename()));
-	   String fileName = multipartFile.getOriginalFilename();
+	   String fileName = multipartFile.getOriginalFilename(); 
+
+	   String filePath = getPath(fileName);
+	   productImage.setFilePath(filePath);
+	   
+	   //System.out.println("the path of the image is :" + filePath);
+	   
+	   System.out.println(productImage.getFilePath());
 	   model.addAttribute("fileName", fileName);
 	   return "success";
 	  }
+	  
+	  
+	 
 	 }
+
+
+
+	private String getPath(String fileName) {
+		String filePath = UPLOAD_LOCATION  + fileName;
+		return filePath;
+	}
 	
 }

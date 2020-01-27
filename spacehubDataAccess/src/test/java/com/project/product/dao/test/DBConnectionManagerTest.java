@@ -1,11 +1,12 @@
 /**
  * 
  */
-package com.product.product.dao.test;
+package com.project.product.dao.test;
 
 import static org.junit.Assert.*;
 
-
+import org.hibernate.SessionFactory;
+import org.jboss.logging.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,8 +24,12 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @RunWith(SpringRunner.class)
 public class DBConnectionManagerTest {
 	
+	
+	
 	@Autowired
 	private ComboPooledDataSource dataSource;
+	
+	
 
 	/**
 	 * @throws java.lang.Exception
@@ -33,9 +38,10 @@ public class DBConnectionManagerTest {
 	public void setUp() throws Exception {
 	}
 
-	@Test
-	public void testDataSource() {
-		assertNotNull(dataSource);
-	}
-
+	
+		@Test
+		public void testDataConn() {
+			assertNotNull(dataSource);
+		}
+	
 }

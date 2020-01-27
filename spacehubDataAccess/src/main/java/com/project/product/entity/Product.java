@@ -2,20 +2,17 @@
  * 
  */
 package com.project.product.entity;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.persistence.Column;
-
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.project.productimg.entity.ProductImage;
 
 /**
  * @author gbemisola
@@ -24,6 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 @Entity
 @Table(name="product")
 public class Product {
+	@Transient
+	@Autowired
+	private ProductImage productImage;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class Product {
 	private int id;
 	
 	@Column(name="product_name")
-	private String productName;
+	private String productName; 
 	
 	@Column(name="product_plan")
 	private String productPlan;
@@ -39,15 +39,26 @@ public class Product {
 	@Column(name="product_price")
 	private double productPrice;
 	
-	
+	@Column(name="product_img")
+	private String productImg;
 	
 	public Product() {
 		
 	}
 
-	public Product(String string, String string2, double d) {
-		// TODO Auto-generated constructor stub
+	
+
+	public Product( String productName, String productPlan, double productPrice,
+			String productImg) {
+		
+		
+		this.productName = productName;
+		this.productPlan = productPlan;
+		this.productPrice = productPrice;
+		this.productImg = productImg;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -80,16 +91,24 @@ public class Product {
 	public void setProductPrice(double productPrice) {
 		this.productPrice = productPrice;
 	}
-	
-	
-	
 
 
+	public String getProductImg() {
+		return productImg;
+	}
+
+	public void setProductImg(String productImg) {
+		
+		productImage.setFilePath(productImg);
+		
+		this.productImg = productImg;
+	}
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", productName=" + productName + ", productPlan=" + productPlan + ", productPrize="
-				+ productPrice  + "]";
+		return "Product [ id=" + id + ", productName=" + productName
+				+ ", productPlan=" + productPlan + ", productPrice=" + productPrice + ", productImg=" + productImg
+				+ "]";
 	}
 
 	

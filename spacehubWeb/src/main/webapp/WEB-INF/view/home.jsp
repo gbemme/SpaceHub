@@ -1,6 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
-  <head>
+   <head>
     <title>
       SpaceHub WorkSpace Management
     </title>
@@ -14,8 +14,7 @@
   <body>
     <section class="header">
       <div class="container">
-      	
-        <img src="${pageContext.request.contextPath}/resources/image/SpaceHub3.png">
+       <img src="${pageContext.request.contextPath}/resources/image/SpaceHub3.png">
         <button type="button" class="home-btn">Home</button>
         <button type="button" class="about-btn">About Us</button>
         <button type="button" class="locate-btn">Locate Us</button>
@@ -32,16 +31,19 @@
     </section>
     <section>
         <h1>Featured Space</h1>
-        
-        <div class="container">
-        <c:forEach var="tempProduct" items="${products}">
-            <div class="row">
+      
+        <div class="container" >
+       
+            <div class="row" >
+          
                 <div class="col-md-4">
+                   <c:forEach var="tempProduct" items="${products}">
                     <div class="feature-box">
+                     
                         <div class="feature-img">
-                            <img src="${pageContext.request.contextPath}/resources/image/coworking1.jpg">
+                              <img src="${pageContext.request.contextPath}/resources/image/coworking1.jpg">
                             <div class="price">
-                                <p>${tempProduct.productPrice}</p>
+                                <p> ${tempProduct.productPrice}</p>
                             </div>
                             <div class="rating">
                                 <i class="fa fa-star"></i>
@@ -53,7 +55,7 @@
                         </div>
                         <div class="feature-details">
                           <h4>${tempProduct.productName}</h4>
-                          <p>${tempProduct.productPlan}.</p>
+                          <p>${tempProduct.productPlan}</p>
                           <div>
                             <span><i class="fa fa-map-marker"></i>Lagos</span>
                             <span><i class="fa fa-sun-o"></i>7 Days</span>
@@ -61,67 +63,16 @@
                           </div>
 
                         </div>
+                               
                     </div>
+                  </c:forEach>  
                 </div>
-                <div class="col-md-4">
-                  <div class="feature-box">
-                    <div class="feature-img">
-                        <img src="${pageContext.request.contextPath}/resources/image/coworking2.jpg">
-                        <div class="price">
-                            <p>${tempProduct.productPrice}</p>
-                        </div>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                        </div>
-                    </div>
-                    <div class="feature-details">
-                      <h4>${tempProduct.productName}</h4>
-                      <p>${tempProduct.productPlan}</p>
-                      <div>
-                        <span><i class="fa fa-map-marker"></i>Lagos</span>
-                        <span><i class="fa fa-sun-o"></i>7 Days</span>
-                        <span><i class="fa fa-moon-o"></i>2 Weekends</span>
-                      </div>
-
-                    </div>
-                </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="feature-box">
-                    <div class="feature-img">
-                        <img src="${pageContext.request.contextPath}/resources/image/coworking3.png">
-                        <div class="price">
-                            <p>${tempProduct.productPrice}</p>
-                        </div>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="feature-details">
-                      <h4>${tempProduct.productName}</h4>
-                      <p>${tempProduct.productPlan}</p>
-                      <div>
-                        <span><i class="fa fa-map-marker"></i>Lagos</span>
-                        <span><i class="fa fa-sun-o"></i>7 Days</span>
-                        <span><i class="fa fa-moon-o"></i>2 Weekends</span>
-                      </div>
-
-                    </div>
-                </div>
-                </div>
-
-            </div>
-             </c:forEach>
+                
+               </div>   
+               
+             
         </div>
-       
+        
     </section>
     <section class="gallery">
       <h1>Co-Working Space Gallery</h1>
@@ -129,19 +80,19 @@
         <div class="row">
           <div class="col-md-3">
             <div class="gallery-box">
-              <img src="${pageContext.request.contextPath}/resources/image/banner1.jpg">
+             <img src="${pageContext.request.contextPath}/resources/image/banner1.jpg">
 	            <h4>Conference</h4>
             </div>
           </div>
           <div class="col-md-3">
             <div class="gallery-box">
-              <img src="${pageContext.request.contextPath}/resources/image/library.jpg">
+               <img src="${pageContext.request.contextPath}/resources/image/library.jpg">
 	            <h4>Library</h4>
             </div>
           </div>
           <div class="col-md-3">
             <div class="gallery-box">
-              <img src="${pageContext.request.contextPath}/resources/image/lounge.jpg">
+        <img src="${pageContext.request.contextPath}/resources/image/lounge.jpg">
 	            <h4>Lounge</h4>
             </div>
           </div>
@@ -182,7 +133,7 @@
               <h5>Abel Annabel</h5>
               <small>Lekki</small>
             </div>
-            <img src="${pageContext.request.contextPath}/resources/image/lady4.jpg">
+           <img src="${pageContext.request.contextPath}/resources/image/lady4.jpg">
           </div>
           <div class="col-md-4">
             <div class="user-review">
@@ -190,7 +141,7 @@
               <h5>Martins Johnson</h5>
               <small>Ikoyi</small>
             </div>
-            <img src="${pageContext.request.contextPath}/resources/image/man2.jpg">
+          <img src="${pageContext.request.contextPath}/resources/image/man2.jpg">
           </div>
           <div class="col-md-4">
             <div class="user-review">
@@ -198,7 +149,7 @@
               <h5>Farida Usman</h5>
               <small>VGC</small>
             </div>
-            <img src="${pageContext.request.contextPath}/resources/image/lady5.jpg">
+             <img src="${pageContext.request.contextPath}/resources/image/lady5.jpg">
           </div>
         </div>
       </div>
@@ -207,7 +158,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-3">
-            <img src="${pageContext.request.contextPath}/resources/image/SpaceHub3.png" class="footer-logo">
+           <img src="${pageContext.request.contextPath}/resources/image/SpaceHub3.png" class="footer-logo">
             <p>SpaceHub is poised to provide Entrepreneurs the right platform to perform, providing a serene and suitable co-work space.  </p>
           </div>
           <div class="col-md-3">
