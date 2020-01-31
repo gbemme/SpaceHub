@@ -99,7 +99,7 @@ public class Product {
 
 	public void setProductImg(String productImg) {
 		
-		productImage.setFilePath(productImg);
+		
 		
 		this.productImg = productImg;
 	}

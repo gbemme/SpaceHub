@@ -5,11 +5,9 @@ package com.project.productimg.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 
 import javax.validation.Valid;
 
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,11 +16,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.project.admin.service.AdminService;
+import com.project.product.entity.Product;
 import com.project.productimg.entity.ProductImage;
 
 /**
@@ -32,7 +32,10 @@ import com.project.productimg.entity.ProductImage;
 @Controller
 public class ProductImageController {
 	
-	private static String UPLOAD_LOCATION="/home/gbemisola/files/";
+	private static String UPLOAD_LOCATION="/home/gbemisola/SpaceHub/ProjectSpaceHub/spacehub/spacehubWeb/src/main/webapp/resources/image/";
+	
+	@Autowired
+	private AdminService adminServiceImpl;
 	
 	@Autowired
 	FileValidator fileValidator;
@@ -54,13 +57,20 @@ public class ProductImageController {
 	
 	
 	@PostMapping("/singleUpload")
-	 public String singleFileUpload(@Valid ProductImage productImage,
+	 public String singleFileUpload(@RequestParam int productId, @Valid ProductImage productImage,
 	   BindingResult result, ModelMap model) throws IOException {
 
 	  if (result.hasErrors()) {
 	   System.out.println("validation errors");
 	   return "singleFileUploader";
 	  } else {
+		  
+		  //get the product from the database
+		  Product theProduct = adminServiceImpl.getProduct(productId);
+		  
+		  System.out.println("Retrived prodcut from the database :" + theProduct);
+		 
+		  
 	   System.out.println("Fetching file");
 	   MultipartFile multipartFile = productImage.getFile();
 
@@ -70,6 +80,13 @@ public class ProductImageController {
 
 	   String filePath = getPath(fileName);
 	   productImage.setFilePath(filePath);
+	   
+	   
+	   //save image path to the database for product
+	   theProduct.setProductImg(getPath(fileName));
+	   
+	   //update product
+	   adminServiceImpl.saveProduct(theProduct);
 	   
 	   //System.out.println("the path of the image is :" + filePath);
 	   

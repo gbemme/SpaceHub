@@ -10,7 +10,10 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
   </parent>
   <artifactId>spacehubWeb</artifactId>
   <packaging>war</packaging>
-  
+  <properties>
+  <springframework.version>5.2.1.RELEASE</springframework.version>
+  <springsecurity.version>5.2.1.RELEASE</springsecurity.version>
+  </properties>
   <dependencies>
  
 	<dependency>
@@ -24,6 +27,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 		<artifactId>spacehubDataAccess</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
+	
 	
 	
   

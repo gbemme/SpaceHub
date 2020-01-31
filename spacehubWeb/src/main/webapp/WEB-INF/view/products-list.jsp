@@ -41,6 +41,7 @@
 			<th> Product Name</th>
 			<th> Product Plan</th>
 			<th> Product Price</th>
+			<th> Product Image Path</th>
 			
 			<th> Action</th>
 		</tr>
@@ -67,6 +68,7 @@
 					<td> ${tempProduct.productName} </td>
 					<td> ${tempProduct.productPlan} </td>
 					<td> ${tempProduct.productPrice} </td>
+					<td> ${tempProduct.productImg} </td>
 					
 					
 					<td> <a href= "${updateLink}"> Update</a>

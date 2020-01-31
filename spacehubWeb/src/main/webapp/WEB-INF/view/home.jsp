@@ -41,7 +41,7 @@
                     <div class="feature-box">
                      
                         <div class="feature-img">
-                              <img src="${pageContext.request.contextPath}/resources/image/coworking1.jpg">
+                              <img src="${pageContext.request.contextPath}${tempProduct.productImg}">
                             <div class="price">
                                 <p> ${tempProduct.productPrice}</p>
                             </div>

@@ -7,6 +7,7 @@ package com.project.product.controller;
 import java.util.List;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.admin.service.AdminService;
@@ -29,13 +31,20 @@ import com.project.product.entity.Product;
  *
  */
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/")
 public class ProductController {
 
 	
 	//inject the product dao service
 	@Autowired
 	private AdminService adminService;
+	
+	
+	@GetMapping("/admin")  
+    public String privateHome() {  
+        return "privatePage";  
+    }  
+	
 	
 	@GetMapping("/product-list")
 	public String listProducts(Model theModel) {
@@ -70,7 +79,7 @@ public class ProductController {
 		//save the product using the product service
 		adminService.saveProduct(theProduct);
 		
-		return "redirect:/admin/product-list";
+		return "redirect:/product-list";
 	}
 	
 	
@@ -103,7 +112,7 @@ public class ProductController {
 		adminService.deleteProduct(theId);
 		
 		
-		return "redirect:/admin/product-list";
+		return "redirect:/product-list";
 	}
 	
 }

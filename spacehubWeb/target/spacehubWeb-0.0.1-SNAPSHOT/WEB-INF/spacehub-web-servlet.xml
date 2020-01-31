@@ -32,13 +32,22 @@
 	
     <bean id="multipartResolver" 
     class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+    
+    
 
+    </bean>
+   
+    
+    <bean id="fileValidator"
+    
+    class="com.project.productimg.controller.FileValidator">
+    
     </bean>
 	<!-- Add support for reading web resources: css, images, js, etc ... -->
 	 <mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>
 	
 	
-	<import resource=" classpath:/spacehub-service-servlet.xml"/>
+	<import resource=" classpath:/spacehub-service-context.xml"/>
 </beans>
 
 

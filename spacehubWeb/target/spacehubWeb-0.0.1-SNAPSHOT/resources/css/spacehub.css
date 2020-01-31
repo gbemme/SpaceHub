@@ -3,6 +3,13 @@
 	padding: 0;
 	margin: 0;
 }
+.container{
+	padding:0px;
+	margin:0px;
+	padding-left:0px;
+	padding-right:0px;
+}
+
 .header
 {
 	height: 100%;
@@ -75,6 +82,7 @@
 	padding-top: 260px;
 	padding-bottom: 0;
 	font-size: 55px;
+	text-align:center;
 }
 
 .header p
@@ -112,7 +120,7 @@
 
 .features
 {
-	padding: 100px 0;
+	padding: 50px 0;
 }
 
 h1
@@ -123,7 +131,7 @@ h1
 
 .feature-img img
 {
-	width: 100%;
+	width: 50%;
 }
 .price
 {
@@ -310,5 +318,9 @@ h1
 }
 .footer .copyright
 {
+	text-align: center;
+}
+
+.h1{
 	text-align: center;
 }

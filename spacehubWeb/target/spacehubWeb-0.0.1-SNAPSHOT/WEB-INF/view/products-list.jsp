@@ -41,6 +41,7 @@
 			<th> Product Name</th>
 			<th> Product Plan</th>
 			<th> Product Price</th>
+			<th> Product Image Path</th>
 			
 			<th> Action</th>
 		</tr>
@@ -61,21 +62,27 @@
 					</c:url>
 					
 					<c:url var="uploadLink" value="/singleUpload">
-						<!--<c:param name="productId" value="${tempProduct.id}" />-->
+						<c:param name="productId" value="${tempProduct.id}" />
 					</c:url>
 				<tr>
 					<td> ${tempProduct.productName} </td>
 					<td> ${tempProduct.productPlan} </td>
 					<td> ${tempProduct.productPrice} </td>
+					<td> ${tempProduct.productImg} </td>
 					
 					
 					<td> <a href= "${updateLink}"> Update</a>
 					
-						  |
+						  ||
 						  
 						 <a href="${deleteLink}"
 							   onclick="if (!(confirm('Are you sure you want to delete this product?')))
 								    return false">Delete</a>
+					
+						  ||
+						  
+						  <a href= "${uploadLink}"> Upload  Image</a>
+					
 					</td>
 				
 				 </tr>

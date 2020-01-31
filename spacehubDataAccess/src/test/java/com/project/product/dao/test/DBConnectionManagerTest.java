@@ -3,10 +3,8 @@
  */
 package com.project.product.dao.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
-import org.hibernate.SessionFactory;
-import org.jboss.logging.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
