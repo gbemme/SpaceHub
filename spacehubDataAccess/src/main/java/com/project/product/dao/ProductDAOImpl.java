@@ -88,6 +88,7 @@ public class ProductDAOImpl implements ProductDAO {
 		Session currentSession = sessionFactory.getCurrentSession();
 		
 		// delete the product with primary key
+		@SuppressWarnings("rawtypes")
 		Query theQuery = currentSession.createQuery("delete from Product where id=:productId");
 		
 			theQuery.setParameter("productId", theId);
