@@ -48,9 +48,9 @@ public class AdminServiceImplTest {
 		
 		Product theProduct = new Product("Accurate","Lovely setting",6000.50,"/home/gbemisola/files/IMG-20200121-WA0006.jpg");
 		
-	 doNothing().when(adminService).saveProduct(isA(Product.class));
+	 doNothing().when(adminService).addProduct(isA(Product.class));
 	 
-	 adminService.saveProduct(theProduct);
+	 adminService.addProduct(theProduct);
 	 verify(adminService,times(1));
 	}
 

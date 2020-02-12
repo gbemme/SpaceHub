@@ -87,7 +87,7 @@ private Logger logger = Logger.getLogger(ProductDAO.class.getName());
 				
 						logger.info("Storing employee to the database");
 						
-				productDAO.saveProduct(theProduct);
+				productDAO.addProduct(theProduct);
 				
 				logger.info("Successfully saving employee to the database");
 		}

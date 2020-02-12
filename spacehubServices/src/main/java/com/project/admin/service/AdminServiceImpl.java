@@ -5,6 +5,7 @@ package com.project.admin.service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,21 +26,23 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private ProductDAO productDAO;
 	
-	@Override
+
 	@Transactional
 	public List<Product> getProducts() {
 		
-		return productDAO.getProducts();
-	}
-
-	@Override
-	@Transactional
-	public void saveProduct(Product theProduct) {
+		List <Product> theProduct = productDAO.getProducts();
 		
-		productDAO.saveProduct(theProduct);
+		return theProduct;
 	}
 
-	@Override
+
+	@Transactional
+	public void addProduct(Product theProduct) {
+		
+		productDAO.addProduct(theProduct);
+	}
+
+	
 	@Transactional
 	public Product getProduct(int theId) {
 		
@@ -48,7 +51,7 @@ public class AdminServiceImpl implements AdminService {
 		 
 	}
 
-	@Override
+
 	@Transactional
 	public void deleteProduct(int theId) {
 		
@@ -56,4 +59,17 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 
+//	@Transactional
+//	public void updateProduct(Product theProduct) {
+//		
+//		
+//		 productDAO.updateProduct(theProduct);
+//	}
+	
+	@Transactional
+	public void updateProductDetails(int id, Product product) {
+		
+		
+		productDAO.updateProductDetails(id, product);
+	}
 }

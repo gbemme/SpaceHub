@@ -4,6 +4,7 @@
 package com.project.productimg.controller;
 
 import java.io.File;
+
 import java.io.IOException;
 
 import javax.validation.Valid;
@@ -86,7 +87,7 @@ public class ProductImageController {
 	   theProduct.setProductImg(getPath(fileName));
 	   
 	   //update product
-	   adminServiceImpl.saveProduct(theProduct);
+	   adminServiceImpl.addProduct(theProduct);
 	   
 	   //System.out.println("the path of the image is :" + filePath);
 	   

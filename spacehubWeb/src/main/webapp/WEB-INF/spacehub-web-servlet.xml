@@ -36,7 +36,21 @@
     
 
     </bean>
-   
+
+
+	<!--Here com.example.service is the base package for swagger configuration -->
+	<context:component-scan
+		base-package="com.project" use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation"
+			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+	</context:component-scan>
+
+
+	<bean id="swagger2Config"
+		class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration">
+	</bean>
     
     <bean id="fileValidator"
     
@@ -48,6 +62,14 @@
 	
 	
 	<import resource=" classpath:/spacehub-service-context.xml"/>
+
+	<mvc:resources order="1" location="/resources/"
+		mapping="/resources/**" />
+	<mvc:resources mapping="swagger-ui.html"
+		location="classpath:/META-INF/resources/" />
+	<mvc:resources mapping="/webjars/**"
+		location="classpath:/META-INF/resources/webjars/" />
+		<mvc:default-servlet-handler />
 </beans>
 
 
