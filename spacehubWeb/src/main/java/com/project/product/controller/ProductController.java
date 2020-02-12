@@ -7,15 +7,22 @@ package com.project.product.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
+import org.springframework.web.bind.annotation.RestController;
+//>>>>>>> branch 'space_branch' of https://github.com/gbemme/SpaceHub.git
+
 import com.project.admin.service.AdminService;
+import com.project.admin.service.AdminServiceImpl;
 import com.project.product.entity.Product;
 
 
@@ -27,8 +34,10 @@ import com.project.product.entity.Product;
  * @author gbemisola
  *
  */
+
 @Controller
 @RequestMapping("/admin")
+@RestController
 public class ProductController {
 
 	
@@ -37,79 +46,76 @@ public class ProductController {
 	private AdminService adminService;
 	
 	
-	@GetMapping("/admin")  
-    public String privateHome() {  
-        return "privatePage";  
-    }  
+//	@GetMapping("/admin")  
+//    public String privateHome() {  
+//        return "privatePage";  
+//    }  
 	
-	
-	@GetMapping("/product-list")
-	public String listProducts(Model theModel) {
+	@CrossOrigin
+	@GetMapping("/listProduct")
+	public List <Product>  listProducts() {
+		
 		//get products from the service
 		
-		List<Product> theProducts = adminService.getProducts();
-		
-		
-		// add the product to the model
-		theModel.addAttribute("products", theProducts);
-		
-		return "products-list";
+		return adminService.getProducts();
+	
 	}
 	
-	@GetMapping("/addProductForm")
-	public String addProduct(Model theModel) {
-		
-		// model attribute to bind form data
-		
-		Product theProduct = new Product();
-		
-		theModel.addAttribute("product", theProduct);
-		
-		return "product-form";
-	}
-	
-	@PostMapping("/saveProduct")
-	public String saveProduct( @ModelAttribute("product") Product theProduct)
+
+	@CrossOrigin
+	@PostMapping("/addProduct")
+	public Product addProduct(@RequestBody Product theProduct)
 	{
-		
+	
 		
 		//save the product using the product service
-		adminService.saveProduct(theProduct);
+		adminService.addProduct(theProduct);
 		
-		return "redirect:/product-list";
+		return theProduct;
+	}
+	
+	
+	
+	@CrossOrigin
+	@GetMapping("/getProduct/{productId}")
+	public Product getProduct(@PathVariable int productId) {
+		
+		return adminService.getProduct(productId);
 	}
 	
 	
 
 
+	@CrossOrigin
+	@PutMapping("/updateProduct/{productId}")
+	public Product updateProduct(@PathVariable("productId") int productId, @RequestBody Product theProduct) {
+		
+		adminService.updateProductDetails(productId, theProduct);
 	
-	@GetMapping("/showFormForUpdate")
-	public String showFormForUpadte(@RequestParam("productId") int theId, Model theModel) {
-		
-	//get product from the service
-		
-		Product theProduct = adminService.getProduct(theId);
-		
-		// set product as a model attribute to pre-populate the form
-		
-		theModel.addAttribute("product", theProduct);
 		
 		
-		//send over to our form
-		
-		
-		return "product-form";
+		return theProduct;
 	
 	}
 	
-	@GetMapping("/delete-product")
-	public String deleteProduct(@RequestParam("productId") int theId) {
+//	@CrossOrigin
+//	@PutMapping("/changeProduct/{id}")
+//	public Product changeProduct(@PathVariable int id, Product newProduct) {
+//		adminService.updateProduct(newProduct);
+//		
+//		return newProduct;
+//	}
+	
+	
+	@CrossOrigin
+	@DeleteMapping("/deleteProduct/{productId}")
+	public void deleteProduct(@PathVariable("productId") int productId) {
 		
 		// delete the customer
-		adminService.deleteProduct(theId);
+		adminService.deleteProduct(productId);
 		
 		
-		return "redirect:/product-list";
+	
 	}
 	
 }

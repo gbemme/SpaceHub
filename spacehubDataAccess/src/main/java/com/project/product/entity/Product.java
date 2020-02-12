@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.project.productimg.entity.ProductImage;
@@ -20,6 +21,7 @@ import com.project.productimg.entity.ProductImage;
  *
  */
 @Entity
+@DynamicUpdate
 @Table(name="product")
 public class Product {
 	

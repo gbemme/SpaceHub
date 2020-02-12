@@ -7,6 +7,7 @@ import java.util.List;
 
 
 
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -16,11 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.project.product.entity.Product;
 
-
-
-
-																																			
-
+																																	
 /**
  * @author gbemisola
  *
@@ -52,20 +49,20 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 
-	@Override
+	
 	@Transactional
-	public void saveProduct(Product theProduct) {
+	public void addProduct(Product theProduct) {
 		
 		// get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 		
 		// save the product
-		currentSession.saveOrUpdate(theProduct);
+		currentSession.save(theProduct);
 				
 	}
 
 
-	@Override
+
 	@Transactional
 	public Product getProduct(int theId) {
 		
@@ -81,21 +78,61 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 
-	@Override
+	
 	@Transactional
 	public void deleteProduct(int theId) {
 		// get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 		
+<<<<<<< HEAD
 		// delete the product with primary key
 		@SuppressWarnings("rawtypes")
 		Query theQuery = currentSession.createQuery("delete from Product where id=:productId");
+=======
+		Product product = currentSession.byId(Product.class).load(theId);
+>>>>>>> branch 'space_branch' of https://github.com/gbemme/SpaceHub.git
 		
-			theQuery.setParameter("productId", theId);
+		currentSession.delete(product);
 		
 		
-		theQuery.executeUpdate();
+		
 		
 	}
+
+
+//	@Transactional
+//	public void updateProduct(Product theProduct) {
+//		
+//		Session currentSession = sessionFactory.getCurrentSession();
+//		
+//		currentSession.update(theProduct);
+//		
+//	}
+
+
+
+	@Transactional
+
+	public void updateProductDetails(int id, Product product) {
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		Product newproduct = session.byId(Product.class).load(id);
+		
+		newproduct.setProductImg(product.getProductImg());
+		
+		newproduct.setProductName(product.getProductName());
+		
+		newproduct.setProductPlan(product.getProductPlan());
+		
+		newproduct.setProductPrice(product.getProductPrice());
+		
+		session.flush();
+		
+	}
+
+
+
+	
 
 }

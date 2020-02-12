@@ -6,6 +6,8 @@ package com.project.productimg.entity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+
+
 /**
  * @author gbemisola
  *
