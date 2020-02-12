@@ -3,8 +3,8 @@
  */
 package com.project.user.entity;
 
-import java.util.Set;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,10 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.JoinColumn;
+import javax.persistence.Transient;
 
 import com.project.role.entity.SpaceHubRole;
 
@@ -31,17 +30,66 @@ import com.project.role.entity.SpaceHubRole;
 @Table(name="spacehubUser")
 public class SpaceHubUser {
 	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
+	private int id;
+	
 	@Column(name="email")
 	private String email;
 	
+	public List<SpaceHubRole> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<SpaceHubRole> roles) {
+		this.roles = roles;
+	}
+
 	@Column(name="password")
 	private String password;
 	
+	@Column(name="first_name")
+	private String firstName;
+	
+	
+	@Column(name="last_name")
+	private String lastName;
+	
+	@Column(name="phone_number")
+	private String phoneNumber;
+	
+	@Transient
 	private String passwordConfirm;
 	
-	private Set<SpaceHubRole> roles;
+	@OneToMany(mappedBy="users", cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	private List<SpaceHubRole> roles;
+	
+	
+	public SpaceHubUser() {
+		
+	}
+	
+	public SpaceHubUser(String email, String password, String firstName, String lastName,
+			String phoneNumber) {
+		super();
+		
+		this.email = email;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+	}
+
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getEmail() {
 		return email;
@@ -58,6 +106,31 @@ public class SpaceHubUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
 	public String getPasswordConfirm() {
 		return passwordConfirm;
@@ -67,20 +140,14 @@ public class SpaceHubUser {
 		this.passwordConfirm = passwordConfirm;
 	}
 
-	
-	@ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-	@JoinTable(name="user_role",
-	joinColumns = {@JoinColumn(name="spacehubUser_email", referencedColumnName="email")},
-	inverseJoinColumns = {@JoinColumn(name="spacehubUser_role", referencedColumnName="spacehubRole_id")})
-	public Set<SpaceHubRole> getRoles() {
-		return roles;
+	public void addRole(SpaceHubRole role) {
+		
+		if(roles == null) {
+			roles = new ArrayList<>();
+		}
+		roles.add(role);
 	}
 
-	public void setRoles(Set<SpaceHubRole> roles) {
-		this.roles = roles;
-	}
-	
-	
 	
 	
 	

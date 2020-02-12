@@ -24,7 +24,7 @@
 	
 	<import resource="spacehub-dataaccess-context.xml"/>
 	
-	
+	<!-- 
 	<bean id="bCryptPasswordEncoder"
           class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"
           c:strength="100"/>
@@ -34,9 +34,9 @@
             user-service-ref="AdminServiceImpl">
             <security:password-encoder ref="bCryptPasswordEncoder" />
         </security:authentication-provider>
-    </security:authentication-manager>
+    </security:authentication-manager>  -->
+
+
 
 </beans>
-
-	</beans>
 	

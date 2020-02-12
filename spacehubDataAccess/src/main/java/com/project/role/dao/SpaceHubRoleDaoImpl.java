@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.role.entity.SpaceHubRole;
 
@@ -19,6 +20,7 @@ import com.project.role.entity.SpaceHubRole;
  */
 
 @Repository
+@Transactional
 public class SpaceHubRoleDaoImpl implements SpaceHubRoleDao {
 
 	
@@ -26,6 +28,7 @@ public class SpaceHubRoleDaoImpl implements SpaceHubRoleDao {
 	private SessionFactory sessionFactory;
 	
 	private Session currentSession() {
+		
 		
 		return sessionFactory.getCurrentSession();
 	}
@@ -48,5 +51,7 @@ public class SpaceHubRoleDaoImpl implements SpaceHubRoleDao {
 		
 		return spaceHubRoles;
 	}
+	
+//	public void s
 
 }

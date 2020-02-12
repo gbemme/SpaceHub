@@ -80,17 +80,17 @@ private Logger logger = Logger.getLogger(ProductDAO.class.getName());
 
 	
 	@Test
-	public void addEmployeeToDatabaseTest() {
+	public void addProductToDatabaseTest() {
 		try {
 			logger.info("creating new product");
 			
 				Product theProduct = new Product("Accurate","Lovely setting",6000.50,"/home/gbemisola/files/IMG-20200121-WA0006.jpg");
 				
-						logger.info("Storing employee to the database");
+						logger.info("Storing product to the database");
 						
 				productDAO.saveProduct(theProduct);
 				
-				logger.info("Successfully saving employee to the database");
+				logger.info("Successfully saving product to the database");
 		}
 		catch(Exception e) {
 			e.printStackTrace();

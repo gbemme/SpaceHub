@@ -24,7 +24,7 @@ public interface AdminService {
 
 	public void deleteProduct(int theId);
 	
-	public SpaceHubUser getUser(String theEmail);
-	
+//	public SpaceHubUser getUser(String theEmail);
+//	
 	public void saveSpaceHubUser(SpaceHubUser theUser);
 }

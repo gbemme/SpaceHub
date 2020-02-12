@@ -3,6 +3,7 @@
  */
 package com.project.admin.service;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.project.product.dao.ProductDAO;
 import com.project.product.entity.Product;
 import com.project.role.dao.SpaceHubRoleDao;
+import com.project.role.entity.SpaceHubRole;
 import com.project.user.dao.SpaceHubUserDao;
 import com.project.user.entity.SpaceHubUser;
 
@@ -35,8 +37,6 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private SpaceHubRoleDao spaceHubRoleDao;
 	
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	
 	@Override
@@ -70,20 +70,20 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 
-	@Override
-	public SpaceHubUser getUser(String theEmail) {
-
-		return spaceHubUserDao.getUser(theEmail);
-	}
-	
-	
+//	@Override
+//	public SpaceHubUser getUser(String theEmail) {
+//
+//		return spaceHubUserDao.getUser(theEmail);
+//	}
+//	
+//	
 	@Override
 	@Transactional
 	public void saveSpaceHubUser(SpaceHubUser user) {
 		
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		//user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		
-		user.setRoles(new HashSet<>(spaceHubRoleDao.getRoles()));
+		user.setRoles(Arrays.asList(new SpaceHubRole("EMPLOYEE")));
 		
 		spaceHubUserDao.saveSpaceHubUser(user);
 		

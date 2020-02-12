@@ -3,19 +3,15 @@
  */
 package com.project.role.entity;
 
-import java.util.Set;
-
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.project.user.entity.SpaceHubUser;
 
@@ -37,10 +33,20 @@ public class SpaceHubRole {
 	@Column(name="spacehubRole_name")
 	private String roleName;
 	
-	private Set<SpaceHubUser> users;
+	@ManyToOne(cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@JoinColumn(name="spacehubUser_email")
+	private SpaceHubUser users;
+
+	
+	
+	public SpaceHubRole(String roleName) {
+		super();
+		this.roleName = roleName;
+	}
 
 	public int getRoleId() {
 		return roleId;
+		
 	}
 
 	public void setRoleId(int roleId) {
@@ -55,16 +61,12 @@ public class SpaceHubRole {
 		this.roleName = roleName;
 	}
 
-	
-	@ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-	@JoinTable(name="user_role",
-	joinColumns = {@JoinColumn(name="spacehubUser_role", referencedColumnName="spacehubRole_id")},
-	inverseJoinColumns = {@JoinColumn(name="spacehubUser_email", referencedColumnName="email")})
-	public Set<SpaceHubUser> getUsers() {
+
+	public SpaceHubUser getUsers() {
 		return users;
 	}
 
-	public void setUsers(Set<SpaceHubUser> users) {
+	public void setUsers(SpaceHubUser users) {
 		this.users = users;
 	}
 

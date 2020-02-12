@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.user.entity.SpaceHubUser;
 
@@ -19,6 +20,7 @@ import com.project.user.entity.SpaceHubUser;
  */
 
 @Repository
+@Transactional
 public class SpaceHubUserDaoImpl implements SpaceHubUserDao {
 	
 	@Autowired
@@ -33,6 +35,7 @@ public class SpaceHubUserDaoImpl implements SpaceHubUserDao {
 	public SpaceHubUser getUser(String email) {		
 		
 		SpaceHubUser theEmail = currentSession().get(SpaceHubUser.class, email);
+		
 		
 		return theEmail;
 	}

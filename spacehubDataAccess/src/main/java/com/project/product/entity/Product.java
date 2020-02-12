@@ -42,7 +42,7 @@ public class Product {
 	@Column(name="product_price")
 	private double productPrice;
 	
-	@Column(name="product_img")
+	@Column(name="product_image")
 	private String productImg;
 	
 	public Product() {
