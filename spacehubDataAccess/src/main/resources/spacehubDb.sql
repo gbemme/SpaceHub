@@ -25,24 +25,14 @@ CREATE TABLE IF NOT EXISTS `spacehub`.`spacehubUser` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(100) NULL,
-  `first_name` VARCHAR(45) NULL,
   `last_name` VARCHAR(45) NULL,
+  `first_name` VARCHAR(45) NULL,
   `phone_number` VARCHAR(45) NULL,
+  `company_name` VARCHAR(45) NULL,
   `enabled` TINYINT(1) NULL,
   PRIMARY KEY (`id`, `email`),
-  INDEX `index2` (`email` ASC))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `spacehub`.`spacehubBooking`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `spacehub`.`spacehubBooking` ;
-
-CREATE TABLE IF NOT EXISTS `spacehub`.`spacehubBooking` (
-  `book_id` INT NOT NULL AUTO_INCREMENT,
-  `time` DATETIME NULL,
-  PRIMARY KEY (`book_id`))
+  INDEX `index2` (`email` ASC),
+  UNIQUE INDEX `company_name_UNIQUE` (`company_name` ASC))
 ENGINE = InnoDB;
 
 
@@ -69,45 +59,12 @@ CREATE TABLE IF NOT EXISTS `spacehub`.`product` (
   `product_plan` VARCHAR(45) NULL,
   `product_price` DOUBLE NULL,
   `product_image` VARCHAR(45) NULL,
-  `spacehubUser_id` INT NOT NULL,
-  `spacehubBooking_book_id` INT NOT NULL,
   `productStatus_productStatusId` INT NOT NULL,
   PRIMARY KEY (`product_id`),
-  INDEX `fk_product_spacehubUser1_idx` (`spacehubUser_id` ASC),
-  INDEX `fk_product_spacehubBooking1_idx` (`spacehubBooking_book_id` ASC),
   INDEX `fk_product_productStatus1_idx` (`productStatus_productStatusId` ASC),
-  CONSTRAINT `fk_product_spacehubUser1`
-    FOREIGN KEY (`spacehubUser_id`)
-    REFERENCES `spacehub`.`spacehubUser` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_product_spacehubBooking1`
-    FOREIGN KEY (`spacehubBooking_book_id`)
-    REFERENCES `spacehub`.`spacehubBooking` (`book_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_product_productStatus1`
     FOREIGN KEY (`productStatus_productStatusId`)
     REFERENCES `spacehub`.`productStatus` (`productStatusId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `spacehub`.`spacehubRole`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `spacehub`.`spacehubRole` ;
-
-CREATE TABLE IF NOT EXISTS `spacehub`.`spacehubRole` (
-  `spacehubRoleId` INT NOT NULL AUTO_INCREMENT,
-  `spacehubRoleName` VARCHAR(45) NULL,
-  `spacehubUser_email` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`spacehubRoleId`),
-  INDEX `fk_spacehubRole_spacehubUser1_idx` (`spacehubUser_email` ASC),
-  CONSTRAINT `fk_spacehubRole_spacehubUser1`
-    FOREIGN KEY (`spacehubUser_email`)
-    REFERENCES `spacehub`.`spacehubUser` (`email`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -133,24 +90,48 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `spacehub`.`organization_has_spacehubBooking`
+-- Table `spacehub`.`spacehubBooking`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `spacehub`.`organization_has_spacehubBooking` ;
+DROP TABLE IF EXISTS `spacehub`.`spacehubBooking` ;
 
-CREATE TABLE IF NOT EXISTS `spacehub`.`organization_has_spacehubBooking` (
+CREATE TABLE IF NOT EXISTS `spacehub`.`spacehubBooking` (
+  `book_id` INT NOT NULL AUTO_INCREMENT,
+  `time` DATETIME NULL,
+  `email` VARCHAR(45) NULL,
+  `duration` INT(31) NULL,
+  `product_product_id` INT NOT NULL,
   `organization_organizationId` INT NOT NULL,
-  `spacehubBooking_book_id` INT NOT NULL,
-  PRIMARY KEY (`organization_organizationId`),
-  INDEX `fk_organization_has_spacehubBooking_organization1_idx` (`organization_organizationId` ASC),
-  INDEX `fk_organization_has_spacehubBooking_spacehubBooking1_idx` (`spacehubBooking_book_id` ASC),
-  CONSTRAINT `fk_organization_has_spacehubBooking_organization1`
+  PRIMARY KEY (`book_id`),
+  INDEX `fk_spacehubBooking_product1_idx` (`product_product_id` ASC),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC),
+  INDEX `fk_spacehubBooking_organization1_idx` (`organization_organizationId` ASC),
+  CONSTRAINT `fk_spacehubBooking_product1`
+    FOREIGN KEY (`product_product_id`)
+    REFERENCES `spacehub`.`product` (`product_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_spacehubBooking_organization1`
     FOREIGN KEY (`organization_organizationId`)
     REFERENCES `spacehub`.`organization` (`organizationId`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_organization_has_spacehubBooking_spacehubBooking1`
-    FOREIGN KEY (`spacehubBooking_book_id`)
-    REFERENCES `spacehub`.`spacehubBooking` (`book_id`)
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `spacehub`.`spacehubRole`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `spacehub`.`spacehubRole` ;
+
+CREATE TABLE IF NOT EXISTS `spacehub`.`spacehubRole` (
+  `spacehubRoleId` INT NOT NULL AUTO_INCREMENT,
+  `spacehubRoleName` VARCHAR(45) NULL,
+  `spacehubUser_email` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`spacehubRoleId`),
+  INDEX `fk_spacehubRole_spacehubUser1_idx` (`spacehubUser_email` ASC),
+  CONSTRAINT `fk_spacehubRole_spacehubUser1`
+    FOREIGN KEY (`spacehubUser_email`)
+    REFERENCES `spacehub`.`spacehubUser` (`email`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
