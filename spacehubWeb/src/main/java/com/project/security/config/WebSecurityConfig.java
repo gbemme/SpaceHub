@@ -3,13 +3,18 @@
  */
 package com.project.security.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.User.UserBuilder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 /**
  * @author lordsugar
@@ -17,19 +22,28 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
  */
 
 @Configuration
+@ComponentScan(basePackages = {"com.project.security.config"})
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+	@Autowired
+	private ComboPooledDataSource myDataSource;
+	
+	
+	 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
-		UserBuilder users = User.withDefaultPasswordEncoder();
 		
-		auth.inMemoryAuthentication()
-			.withUser(users.username("Gbemi").password("12345678").roles("ADMIN"));
+		auth.jdbcAuthentication().dataSource(myDataSource)
 		
-		auth.inMemoryAuthentication()
-		    .withUser(users.username("Ken").password("12345678").roles("MANAGER"));
+				.passwordEncoder(passwordEncoder())
+				.usersByUsernameQuery("select email, password, enabled "
+					 + "from spacehubUser "
+						+ "where email = ?")
+				.authoritiesByUsernameQuery("select spacehubUser_email, role_name "
+						+ "from spacehubRole "
+						+ "where spacehubUser_email = ?");
 	}
 
 	@Override
@@ -48,8 +62,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.logout().permitAll();
 	}
 	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		
+		return new BCryptPasswordEncoder();
+		
+	}
 	
-
 
 	
 	

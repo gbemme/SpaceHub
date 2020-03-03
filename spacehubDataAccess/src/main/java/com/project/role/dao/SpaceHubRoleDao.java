@@ -16,5 +16,7 @@ public interface SpaceHubRoleDao {
 	public SpaceHubRole getRole(int theId);
 	
 	public List <SpaceHubRole> getRoles();
+	
+	public void saveRole(SpaceHubRole theRole);
 
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans xmlns="http://www.springframework.org/schema/beans/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:context="http://www.springframework.org/schema/context"
     xmlns:tx="http://www.springframework.org/schema/tx"
@@ -24,19 +24,19 @@
 	
 	<import resource="spacehub-dataaccess-context.xml"/>
 	
-	<!-- 
 	<bean id="bCryptPasswordEncoder"
-          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"
-          c:strength="100"/>
+          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+          <constructor-arg name="strength" value="12"/>
+          
+     </bean>
 
-    <security:authentication-manager>
-        <security:authentication-provider
-            user-service-ref="AdminServiceImpl">
-            <security:password-encoder ref="bCryptPasswordEncoder" />
-        </security:authentication-provider>
-    </security:authentication-manager>  -->
+     <authentication-manager>
+	        <authentication-provider user-service-ref="AdminServiceImpl">
+	            <password-encoder ref="passwordEncoder"/>
+	        </authentication-provider>
+    </authentication-manager> 
 
-
+	
 
 </beans>
 	

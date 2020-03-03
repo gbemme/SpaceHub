@@ -25,10 +25,10 @@ public interface AdminService {
 	public void deleteProduct(int theId);
 
 //	public SpaceHubUser getUser(String theEmail);
-//	
+	
 	public void saveSpaceHubUser(SpaceHubUser theUser);
 
-	//public void updateProduct(Product theProduct);
+//  public void updateProduct(Product theProduct);
 	
 	public void updateProductDetails(int id, Product product);
 }

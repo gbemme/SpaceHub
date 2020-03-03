@@ -17,23 +17,11 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <version>2.0.1.Final</version>
 </dependency>
   
-      <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13</version>
-      <scope>test</scope>
-    </dependency>
+    
 <dependency>
 	    <groupId>com.mchange</groupId>
 	    <artifactId>c3p0</artifactId>
 	    <version>0.9.5.5</version>
-	</dependency>
-  	
-
- 		<dependency>
-	    <groupId>org.springframework</groupId>
-	    <artifactId>spring-orm</artifactId>
-	    <version>5.2.2.RELEASE</version>
 	</dependency>
 	
 	 <dependency>
@@ -48,7 +36,6 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	    <artifactId>spring-tx</artifactId>
 	    <version>5.2.2.RELEASE</version>
 	</dependency>
-	
 	
 	<dependency>
 	    <groupId>mysql</groupId>

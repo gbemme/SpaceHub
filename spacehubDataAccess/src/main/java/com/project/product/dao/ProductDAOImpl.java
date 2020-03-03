@@ -84,14 +84,9 @@ public class ProductDAOImpl implements ProductDAO {
 		// get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 		
-<<<<<<< HEAD
-		// delete the product with primary key
-		@SuppressWarnings("rawtypes")
-		Query theQuery = currentSession.createQuery("delete from Product where id=:productId");
-=======
+
 		Product product = currentSession.byId(Product.class).load(theId);
->>>>>>> branch 'space_branch' of https://github.com/gbemme/SpaceHub.git
-		
+
 		currentSession.delete(product);
 		
 		

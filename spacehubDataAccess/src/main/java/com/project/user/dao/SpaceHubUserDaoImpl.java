@@ -34,17 +34,17 @@ public class SpaceHubUserDaoImpl implements SpaceHubUserDao {
 	@Override
 	public SpaceHubUser getUser(String email) {		
 		
-		SpaceHubUser theEmail = currentSession().get(SpaceHubUser.class, email);
+		SpaceHubUser theId = currentSession().get(SpaceHubUser.class, email);
 		
 		
-		return theEmail;
+		return theId;
 	}
 
 	@Override
 	public List<SpaceHubUser> getUsers() {
 		
 		Query<SpaceHubUser> theQuery = currentSession()
-				.createQuery("from SpaceHubUser order by email", SpaceHubUser.class);
+				.createQuery("from SpaceHubUser order by username", SpaceHubUser.class);
 		
 		List<SpaceHubUser> spaceHubUsers = theQuery.getResultList();
 		
@@ -55,7 +55,7 @@ public class SpaceHubUserDaoImpl implements SpaceHubUserDao {
 	@Override
 	public void saveSpaceHubUser(SpaceHubUser theSpacehubuser) {
 
-		currentSession().saveOrUpdate(theSpacehubuser);
+		currentSession().save(theSpacehubuser);
 	}
 
 }

@@ -14,15 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.bind.annotation.RestController;
-//>>>>>>> branch 'space_branch' of https://github.com/gbemme/SpaceHub.git
 
 import com.project.admin.service.AdminService;
-import com.project.admin.service.AdminServiceImpl;
 import com.project.product.entity.Product;
 
 
@@ -35,8 +29,8 @@ import com.project.product.entity.Product;
  *
  */
 
-@Controller
-@RequestMapping("/admin")
+
+
 @RestController
 public class ProductController {
 
