@@ -5,106 +5,124 @@ package com.project.productimg.controller;
 
 import java.io.File;
 
-import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-import javax.validation.Valid;
-
+import org.cloudinary.json.JSONArray;
+import org.cloudinary.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.project.admin.service.AdminService;
-import com.project.product.entity.Product;
-import com.project.productimg.entity.ProductImage;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+import com.project.spacehub.entity.Product;
+import com.project.spacehub.service.AdminService;
 
 /**
  * @author gbemisola
  *
  */
-@Controller
+@SuppressWarnings("unused")
+@RestController
 public class ProductImageController {
 	
-	private static String UPLOAD_LOCATION="/home/gbemisola/SpaceHub/ProjectSpaceHub/spacehub/spacehubWeb/src/main/webapp/resources/image/";
+	//private static String UPLOAD_LOCATION="/home/gbemisola/SpaceHub/ProjectSpaceHub/spacehub/spacehubWeb/src/main/webapp/resources/image/";
 	
 	@Autowired
 	private AdminService adminServiceImpl;
 	
-	@Autowired
-	FileValidator fileValidator;
+//	@Autowired
+//	FileValidator fileValidator;
 	
 	
-	@InitBinder("productImage")
-	 protected void initBinderFileBucket(WebDataBinder binder) {
-	  binder.setValidator(fileValidator);
-	 }
-
 	
+//	@Autowired
+//	@Qualifier("cloud_name")
+//	String myCloudName;
+//     
+//	@Autowired
+//	@Qualifier("api_key")
+//	String myCloudKey;
+//	
+//	
+//	@Autowired
+//	@Qualifier("api_secret")
+//	String myCloudSecret;
 	
-	@GetMapping("/singleUpload")
-	 public String getSingleUploadPage(ModelMap model) {
-	 ProductImage productImg = new ProductImage();
-	  model.addAttribute("productImage", productImg);
-	  return "singleFileUploader";
-	 }
-	
-	
-	@PostMapping("/singleUpload")
-	 public String singleFileUpload(@RequestParam int productId, @Valid ProductImage productImage,
-	   BindingResult result, ModelMap model) throws IOException {
+//	@GetMapping(value="/image")
+//    public ResponseEntity< List<String> > get(
+//        @RequestParam(value="name", required=false) String aName)
+//    {
+//        Cloudinary c=new Cloudinary("cloudinary://"+"648151448984285"+":"+"Qq9fMik6OZEwxntXfr8LjJGvuyA"+"@"+"spacehubpictures");
+//        List<String> retval=new ArrayList<String>();
+//        try
+//        {
+//            Map response=c.api().resource("", ObjectUtils.asMap("type", "upload"));
+//            JSONObject json=new JSONObject(response);
+//            JSONArray ja=json.getJSONArray("resources");
+//            for(int i=0; i<ja.length(); i++)
+//            {
+//                JSONObject j=ja.getJSONObject(i);
+//                retval.add(j.getString("url"));
+//            }
+//
+//            return new ResponseEntity< List<String> >(retval, HttpStatus.OK);
+//        }
+//        catch (Exception e)
+//        {
+//            return new ResponseEntity< List<String> >(HttpStatus.BAD_REQUEST);
+//        }
+//    }
+	  Cloudinary c=new Cloudinary("cloudinary://"+"648151448984285"+":"+"Qq9fMik6OZEwxntXfr8LjJGvuyA"+"@"+"spacehubpictures");
 
-	  if (result.hasErrors()) {
-	   System.out.println("validation errors");
-	   return "singleFileUploader";
-	  } else {
-		  
-		  //get the product from the database
-		  Product theProduct = adminServiceImpl.getProduct(productId);
-		  
-		  System.out.println("Retrived prodcut from the database :" + theProduct);
-		 
-		  
-	   System.out.println("Fetching file");
-	   MultipartFile multipartFile = productImage.getFile();
+    @PostMapping(value="/image")
+    public ResponseEntity< String > post(
+        @RequestParam(value="upload", required=true) MultipartFile aFile,  int id)
+    {
+      
+        try
+        {
+        	
+            File f = Files.createTempFile("temp", aFile.getOriginalFilename()).toFile();
+            
+            //convert multipart file type to file because cloudinary does not support multipart file;
+            aFile.transferTo(f);
+            
+         // uplaoad image to cloudinary using the image name as public id
+            Map response=c.uploader().upload(f, ObjectUtils.asMap( "public_id", aFile.getOriginalFilename()));
+            
+            JSONObject json=new JSONObject(response);
+            String url=json.getString("url"); 
+            
+            System.out.println("the picture is :" + f);
+            System.out.println("the url is :" + url);
+            
+            
+            Product theProduct= adminServiceImpl.getProduct(id);
+            
+            theProduct.setProductImg(url);
+            
+            adminServiceImpl.updateProductDetails(id, theProduct);
+            
+            return new ResponseEntity<String>("{\"status\":\"OK\", \"url\":\""+response+"\"}", HttpStatus.OK);
+           
+            
+            
+        }
+        catch(Exception e)
+        {
+            return new ResponseEntity< String >("", HttpStatus.BAD_REQUEST);
+        }
+    }
+    
 
-	   // Now do something with file...
-	   FileCopyUtils.copy(productImage.getFile().getBytes(), new File( UPLOAD_LOCATION + productImage.getFile().getOriginalFilename()));
-	   String fileName = multipartFile.getOriginalFilename(); 
-
-	   String filePath = getPath(fileName);
-	   productImage.setFilePath(filePath);
-	   
-	   
-	   //save image path to the database for product
-	   theProduct.setProductImg(getPath(fileName));
-	   
-	   //update product
-	   adminServiceImpl.addProduct(theProduct);
-	   
-	   //System.out.println("the path of the image is :" + filePath);
-	   
-	   System.out.println(productImage.getFilePath());
-	   model.addAttribute("fileName", fileName);
-	   return "success";
-	  }
-	  
-	  
-	 
-	 }
-
-
-
-	private String getPath(String fileName) {
-		String filePath = UPLOAD_LOCATION  + fileName;
-		return filePath;
-	}
-	
 }

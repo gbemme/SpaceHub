@@ -17,8 +17,9 @@ import org.mockito.Mock;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.project.admin.service.AdminService;
-import com.project.product.entity.Product;
+import com.project.spacehub.entity.Product;
+import com.project.spacehub.entity.ProductStatus;
+import com.project.spacehub.service.AdminService;
 
 /**
  * @author gbemisola
@@ -46,7 +47,7 @@ public class AdminServiceImplTest {
 	@Test
 	public void addNewProductTest() {
 		
-		Product theProduct = new Product("Accurate","Lovely setting",6000.50,"/home/gbemisola/files/IMG-20200121-WA0006.jpg");
+		Product theProduct = new Product("Accurate","Lovely setting",6000.50,ProductStatus.BOOKED,"/home/gbemisola/files/IMG-20200121-WA0006.jpg");
 		
 	 doNothing().when(adminService).addProduct(isA(Product.class));
 	 

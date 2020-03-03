@@ -27,6 +27,26 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+
+	<bean id="cloudinaryConfigMap" class="java.util.HashMap">
+    <constructor-arg>
+        <map key-type="java.lang.String" value-type="java.lang.String">
+            <entry key="api_key" value="${cloudinary.api.key}" />
+            <entry key="api_secret" value="${cloudinary.api.secret}" />
+            <entry key="cloud_name" value="${cloudinary.cloud-name}" />
+           <!-- <entry key="callback" value="$[app.url.base]/path/to/cloudinary_cors.html" />  -->
+        </map>
+    </constructor-arg>
+</bean>
+
+<bean id="cloudinary" class="com.cloudinary.Cloudinary">
+    <constructor-arg index="0" ref="cloudinaryConfigMap" />
+</bean>
+
+<bean id="cloudinarySingleton" class="com.cloudinary.SingletonManager" 
+    init-method="init" destroy-method="destroy">
+    <property name="cloudinary" ref="cloudinary" />
+</bean>
    
 	
 	
@@ -36,6 +56,7 @@
     
 
     </bean>
+
 
 
 	<!--Here com.project is the base package for swagger configuration -->
@@ -51,12 +72,12 @@
 	<bean id="swagger2Config"
 		class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration">
 	</bean>
+
+    <!-- <bean id="fileValidator"
     
-    <bean id="fileValidator"
+    class="com.project.productimg.controller.FileValidator"> 
     
-    class="com.project.productimg.controller.FileValidator">
-    
-    </bean>
+    </bean> -->
 	<!-- Add support for reading web resources: css, images, js, etc ... -->
 	 <mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>
 	
