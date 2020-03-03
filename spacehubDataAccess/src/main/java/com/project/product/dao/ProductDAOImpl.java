@@ -83,10 +83,14 @@ public class ProductDAOImpl implements ProductDAO {
 	public void deleteProduct(int theId) {
 		// get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
-		
+
+		// delete the product with primary key
+		@SuppressWarnings("rawtypes")
+		Query theQuery = currentSession.createQuery("delete from Product where id=:productId");
 
 		Product product = currentSession.byId(Product.class).load(theId);
 
+		
 		currentSession.delete(product);
 		
 		

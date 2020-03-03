@@ -27,10 +27,10 @@ public class SpaceHubRole {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name="spacehubRole_Id")
 	private int roleId;
 	
-	@Column(name="role_name")
+	@Column(name="spacehubRole_name")
 	private String roleName;
 	
 	@ManyToOne(cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
@@ -60,6 +60,7 @@ public class SpaceHubRole {
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
+
 
 	public SpaceHubUser getUsers() {
 		return users;

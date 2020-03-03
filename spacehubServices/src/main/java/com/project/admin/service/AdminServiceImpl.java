@@ -4,16 +4,17 @@
 package com.project.admin.service;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.project.product.dao.ProductDAO;
 import com.project.product.entity.Product;
+import com.project.role.dao.SpaceHubRoleDao;
 import com.project.role.entity.SpaceHubRole;
 import com.project.user.dao.SpaceHubUserDao;
 import com.project.user.entity.SpaceHubUser;
@@ -33,12 +34,10 @@ public class AdminServiceImpl implements AdminService {
 	
 
 	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
-	@Autowired
 	private SpaceHubUserDao spaceHubUserDao;
 	
-	
+	@Autowired
+	private SpaceHubRoleDao spaceHubRoleDao;
 	
 	
 	
@@ -85,28 +84,24 @@ public class AdminServiceImpl implements AdminService {
 //	
 	@Override
 	@Transactional
-	public void saveSpaceHubUser(SpaceHubUser account){
+	public void saveSpaceHubUser(SpaceHubUser user) {
 		
-		 SpaceHubUser  user = new SpaceHubUser();
-		 
-		 user.setEmail(account.getEmail());
-		 
-		 user.setPassword(passwordEncoder.encode(account.getPassword()));
-		 
-		 user.setRoles(Arrays.asList(new SpaceHubRole("ROLE_USER")));
-		 
-		 user.setFirstName(account.getFirstName());
-		 
-		 user.setLastName(account.getLastName());
-		 
-		 user.setCompanyName(account.getCompanyName());
-		 
+		//user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		
+		user.setRoles(Arrays.asList(new SpaceHubRole("EMPLOYEE")));
 		
 		spaceHubUserDao.saveSpaceHubUser(user);
 		
 	}
 	
 
+
+//	@Transactional
+//	public void updateProduct(Product theProduct) {
+//		
+//		
+//		 productDAO.updateProduct(theProduct);
+//	}
 	
 	@Transactional
 	public void updateProductDetails(int id, Product product) {

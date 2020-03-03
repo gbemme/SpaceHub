@@ -13,7 +13,7 @@ import com.project.user.entity.SpaceHubUser;
  */
 public interface SpaceHubUserDao {
 	
-	public SpaceHubUser getUser(String user);
+	public SpaceHubUser getUser(String theEmail);
 	
 	public List <SpaceHubUser> getUsers();
 	

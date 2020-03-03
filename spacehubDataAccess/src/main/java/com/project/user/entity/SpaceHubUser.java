@@ -36,10 +36,16 @@ public class SpaceHubUser {
 	@Column(name="id")
 	private int id;
 	
-	
 	@Column(name="email")
 	private String email;
 	
+	public List<SpaceHubRole> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<SpaceHubRole> roles) {
+		this.roles = roles;
+	}
 
 	@Column(name="password")
 	private String password;
@@ -54,18 +60,14 @@ public class SpaceHubUser {
 	@Column(name="phone_number")
 	private String phoneNumber;
 	
-	@Column(name="company_name")
-	private String companyName;
-	
 	@Transient
 	private String passwordConfirm;
 	
-	@OneToMany(mappedBy="users", cascade= {CascadeType.DETACH, CascadeType.MERGE, 
-										CascadeType.PERSIST, CascadeType.REFRESH})
+	@OneToMany(mappedBy="users", cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	private List<SpaceHubRole> roles;
 	
 	
-	public SpaceHubUser() { 
+	public SpaceHubUser() {
 		
 	}
 	
@@ -81,7 +83,6 @@ public class SpaceHubUser {
 	}
 
 	
-
 	public int getId() {
 		return id;
 	}
@@ -138,39 +139,14 @@ public class SpaceHubUser {
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
 	}
-	
-	
-	public List<SpaceHubRole> getRoles() {
-		return roles;
-	}
 
-	public void setRoles(List<SpaceHubRole> roles) {
-		this.roles = roles;
-	}
-	
-
-	public String getCompanyName() {
-		return companyName;
-	}
-
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-
-	
-	
-	public void addRole(SpaceHubRole tempRole) {
+	public void addRole(SpaceHubRole role) {
 		
 		if(roles == null) {
 			roles = new ArrayList<>();
 		}
-		roles.add(tempRole);
-		
-		tempRole.setUsers(this);
+		roles.add(role);
 	}
-
-	
-	
 
 	
 	

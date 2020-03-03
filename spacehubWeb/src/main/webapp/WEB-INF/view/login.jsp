@@ -53,7 +53,7 @@
        
         <div class="row">
         <p>
-          Email: <input type="text" name="username" placeholder="Username" required />
+          User name: <input type="text" name="username" placeholder="Username" required />
           <i class="fas fa-user"></i>
           </p>
         </div> 

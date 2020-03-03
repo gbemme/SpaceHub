@@ -3,9 +3,6 @@
  */
 package com.project.security.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import java.util.Arrays;
 
 import org.springframework.context.annotation.Bean;
@@ -15,10 +12,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.web.cors.CorsConfiguration;
@@ -31,28 +24,19 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
  */
 
 @Configuration
-@ComponentScan(basePackages = {"com.project.security.config"})
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private ComboPooledDataSource myDataSource;
-	
-	
-	 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
+		UserBuilder users = User.withDefaultPasswordEncoder();
 		
-		auth.jdbcAuthentication().dataSource(myDataSource)
+		auth.inMemoryAuthentication()
+			.withUser(users.username("Gbemi").password("12345678").roles("ADMIN"));
 		
-				.passwordEncoder(passwordEncoder())
-				.usersByUsernameQuery("select email, password, enabled "
-					 + "from spacehubUser "
-						+ "where email = ?")
-				.authoritiesByUsernameQuery("select spacehubUser_email, role_name "
-						+ "from spacehubRole "
-						+ "where spacehubUser_email = ?");
+		auth.inMemoryAuthentication()
+		    .withUser(users.username("Ken").password("12345678").roles("MANAGER"));
 	}
 
 	@Override
@@ -76,12 +60,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.logout().permitAll();
 	}
 	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		
-		return new BCryptPasswordEncoder();
-		
-	}
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {    
