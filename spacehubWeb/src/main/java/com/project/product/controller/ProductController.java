@@ -18,9 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.admin.service.AdminService;
 import com.project.product.entity.Product;
-import com.project.spacehub.entity.Product;
-import com.project.spacehub.service.AdminService;
-import com.project.spacehub.service.AdminServiceImpl;
 
 
 
