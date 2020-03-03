@@ -102,8 +102,18 @@
 			<version>1.3.1</version>
 		</dependency>
 
-		
-<<<<<<< HEAD
+		<dependency>
+            <groupId>com.cloudinary</groupId>
+            <artifactId>cloudinary-taglib</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.cloudinary</groupId>
+            <artifactId>cloudinary-http44</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
 		
 		<dependency>
 			<groupId>org.mockito</groupId>
@@ -123,7 +133,7 @@
 		    <artifactId>spring-security-config</artifactId>
 		    <version>5.2.1.RELEASE</version>
 	</dependency>
-=======
+
 	<!--Dependency for swagger 2 -->
 	<dependency>
     <groupId>io.springfox</groupId>
@@ -149,7 +159,7 @@
     <artifactId>jstl</artifactId>
     <version>1.2</version>
 </dependency>
->>>>>>> branch 'space_branch' of https://github.com/gbemme/SpaceHub.git
+
 
 
 <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->

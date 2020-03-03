@@ -3,7 +3,7 @@ package com.project.spacehub.product.controller.test;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.project.admin.service.AdminService;
+import com.project.spacehub.service.AdminService;
 
 //@ContextConfiguration("classpath:/spacehub-web-servlet.xml")
 //

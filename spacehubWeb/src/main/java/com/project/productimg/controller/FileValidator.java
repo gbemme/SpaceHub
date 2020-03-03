@@ -6,7 +6,7 @@ package com.project.productimg.controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import com.project.productimg.entity.ProductImage;
+import com.project.spacehub.entity.ProductImage;
 
 /**
  * @author gbemisola

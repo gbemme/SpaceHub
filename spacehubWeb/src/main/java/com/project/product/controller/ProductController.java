@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 //>>>>>>> branch 'space_branch' of https://github.com/gbemme/SpaceHub.git
 
-import com.project.admin.service.AdminService;
-import com.project.admin.service.AdminServiceImpl;
-import com.project.product.entity.Product;
+import com.project.spacehub.entity.Product;
+import com.project.spacehub.service.AdminService;
+import com.project.spacehub.service.AdminServiceImpl;
 
 
 
@@ -35,8 +35,7 @@ import com.project.product.entity.Product;
  *
  */
 
-@Controller
-@RequestMapping("/admin")
+@CrossOrigin
 @RestController
 public class ProductController {
 
