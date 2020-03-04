@@ -20,9 +20,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.project.admin.service.AdminService;
-import com.project.product.entity.Product;
-import com.project.user.entity.SpaceHubUser;
+import com.project.spacehub.service.AdminService;
+import com.project.spacehub.service.UserService;
+import com.project.spacehub.entity.Product;
+import com.project.spacehub.entity.SpaceHubUser;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
