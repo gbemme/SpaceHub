@@ -56,8 +56,8 @@ public class SpaceHubUser {
 	@Transient
 	private String passwordConfirm;
 	
-	@OneToMany(mappedBy= "userId",  cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-	private List <Booking> bookingId;
+//	@OneToMany(mappedBy= "userId",  cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+//	private List <Booking> bookingId;
 	
 	@OneToMany(mappedBy="users", cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	private List<SpaceHubRole> roles;
@@ -146,13 +146,13 @@ public class SpaceHubUser {
 	
 	
 
-	public List<Booking> getBookingId() {
-		return bookingId;
-	}
-
-	public void setBookingId(List<Booking> bookingId) {
-		this.bookingId = bookingId;
-	}
+//	public List<Booking> getBookingId() {
+//		return bookingId;
+//	}
+//
+//	public void setBookingId(List<Booking> bookingId) {
+//		this.bookingId = bookingId;
+//	}
 	
 	
 	
