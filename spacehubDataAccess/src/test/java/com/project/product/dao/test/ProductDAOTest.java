@@ -20,8 +20,9 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import com.project.product.dao.ProductDAO;
-import com.project.product.entity.Product;
+import com.project.spacehub.dao.ProductDAO;
+import com.project.spacehub.entity.Product;
+import com.project.spacehub.entity.ProductStatus;
 
 @Sql(scripts= {"classpath:spacehubDb.sql"})
 @ContextConfiguration(locations= {"classpath:/spacehub-dataaccess-context.xml"})
@@ -84,7 +85,7 @@ private Logger logger = Logger.getLogger(ProductDAO.class.getName());
 		try {
 			logger.info("creating new product");
 			
-				Product theProduct = new Product("Accurate","Lovely setting",6000.50,"/home/gbemisola/files/IMG-20200121-WA0006.jpg");
+				Product theProduct = new Product("Accurate","Lovely setting",6000.50,ProductStatus.BOOKED,"/home/gbemisola/files/IMG-20200121-WA0006.jpg");
 				
 						logger.info("Storing product to the database");
 						

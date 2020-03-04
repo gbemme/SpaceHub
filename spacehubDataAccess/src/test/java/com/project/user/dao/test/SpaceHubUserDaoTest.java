@@ -16,9 +16,9 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import com.project.role.entity.SpaceHubRole;
-import com.project.user.dao.SpaceHubUserDao;
-import com.project.user.entity.SpaceHubUser;
+import com.project.spacehub.dao.SpaceHubUserDao;
+import com.project.spacehub.entity.SpaceHubRole;
+import com.project.spacehub.entity.SpaceHubUser;
 
 /**
  * @author lordsugar
