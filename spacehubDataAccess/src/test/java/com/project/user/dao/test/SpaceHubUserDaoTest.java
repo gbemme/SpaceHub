@@ -41,7 +41,6 @@ public class SpaceHubUserDaoTest {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	
 	@Before
 	public void setUp() throws Exception {
 		
@@ -61,18 +60,21 @@ public class SpaceHubUserDaoTest {
 		
 		try {
 			logger.info("adding a new user");
+			
 				
-				SpaceHubRole employee = new SpaceHubRole("EMPLOYEE");
+				SpaceHubUser theUser1 = new SpaceHubUser("ken@gmail.com", "kenneth", "ken", "obodo", "07034280038"); 
 				
-				SpaceHubUser theSpaceHubUser = new SpaceHubUser("ken@gmail.com", "kenneth", "ken", "obodo", "07034280038");
+				SpaceHubRole employee = new SpaceHubRole("ROLE_USER");
 				
-				theSpaceHubUser.addRole(employee);
+				theUser1.addRole(employee);
 				
 				logger.info("Saving user to database");
 				
-				spaceHubUserDao.saveSpaceHubUser(theSpaceHubUser);
-				
-				logger.info("Successfully saving user to database");
+				spaceHubUserDao.saveSpaceHubUser(theUser1);
+
+				//spaceHubRoleDao.saveRole(employee);
+											
+				logger.info("Successfully saved user to database");
 		}
 		catch(Exception e) {
 			e.printStackTrace();

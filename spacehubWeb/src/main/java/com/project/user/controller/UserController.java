@@ -3,14 +3,29 @@
  */
 package com.project.user.controller;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.spacehub.entity.Booking;
+import com.project.spacehub.entity.Product;
 import com.project.spacehub.entity.SpaceHubUser;
 import com.project.spacehub.service.AdminService;
 import com.project.spacehub.service.UserService;
@@ -31,35 +46,57 @@ public class UserController {
 	@Autowired
 	SessionFactory sessionFactory;
 	
-//	@GetMapping("/home")
-//	public String home(Model theModel) {
-//		List<Product> theProducts = adminService.getProducts();
-//		
-//		theModel.addAttribute("products", theProducts);
-//		
-//		return "home";
-//	}
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
-//	@RequestMapping("/registration")
-//	public String showRegistration(Model theModel) {
-//		
-//		SpaceHubUser user = new SpaceHubUser();
-//		
-//		theModel.addAttribute("spacehubuser",user);
-//		
-//		return "registration";
-//	}
+	
+	@GetMapping("/home")
+	public String home(Model theModel) {
+		List<Product> theProducts = adminService.getProducts();
+		
+		theModel.addAttribute("products", theProducts);
+		
+		return "home";
+	}
+	
+	
 	@CrossOrigin
 	@PostMapping("/register") 
 	public SpaceHubUser registerUser(@RequestBody SpaceHubUser user) {
+				
+		adminService.saveSpaceHubUser(user);
+
+		return user;
+	}
+	
+	
+	@PostMapping("/saveUser")
+	public String saveUser(@Valid @ModelAttribute("spacehubuser") SpaceHubUser user,
+			BindingResult result, Model model) {
 		
+		if (result.hasErrors()) {
+            return "register";
+        }
+		
+		System.out.println("user: " +user.toString());
+
+	
 		adminService.saveSpaceHubUser(user);
 		
 		System.out.println("user: " +user.getFirstName() + " " + user.getLastName());
 
 		
-		return user;
+		return "confirmation";
 	}
+	
+
+	@GetMapping("/showLogin")
+	public String showLogin() {
+		
+		return "login";
+
+	}
+	
 	
 	@CrossOrigin
 	@PostMapping("/book")
@@ -69,16 +106,19 @@ public class UserController {
 		
 		
 		return book;
+	}
+		
+	
+	
+	
+	
+	@GetMapping("/")
+	public String showHome() {
+		
+		return "home";	
 		
 		
 	}
 	
 	
-//	@RequestMapping("/processForm")
-//	public String processForm(@ModelAttribute("spacehubuser") SpaceHubUser user) {
-//		
-//		System.out.println("user: " +user.getFirstName() + " " + user.getLastName());
-//		return "confirmation";
-//	}
-
 }

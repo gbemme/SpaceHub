@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.role.entity.SpaceHubRole;
+import com.project.user.entity.SpaceHubUser;
 
 /**
  * @author lordsugar
@@ -51,7 +52,14 @@ public class SpaceHubRoleDaoImpl implements SpaceHubRoleDao {
 		
 		return spaceHubRoles;
 	}
+
+	@Override
+	public void saveRole(SpaceHubRole role) {
+		
+		currentSession().save(role);
+		
+	}
 	
-//	public void s
+
 
 }
